@@ -11,12 +11,12 @@ class BookTest {
 
     @BeforeEach
     void init() {
-        book = new Book("First Title");
+        book = new Book("First Title", "neha", 2018);
     }
 
     @DisplayName("test for printing the books details")
     @Test
     void testForPrint() {
-        assertEquals("First Title", book.getString());
+        assertEquals("\nFirst Title---neha---2018", book.getString());
     }
 }

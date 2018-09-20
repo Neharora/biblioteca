@@ -1,5 +1,6 @@
 package model;
 
+import helper.Helper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,12 +16,7 @@ class LibraryTest {
 
     @BeforeEach
     void init() {
-        Set<Book> bookSet = new HashSet<>();
-        Book book1 = new Book("First Title");
-        Book book2 = new Book("Second Title");
-        bookSet.add(book1);
-        bookSet.add(book2);
-        library = new Library(bookSet);
+        library = new Helper().returnLibrary();
     }
 
     @DisplayName("Test to get the getWelcomeMessage from biblioteca")
@@ -34,8 +30,8 @@ class LibraryTest {
     @Test
     void testForPrintingListOfBooks() {
         Set<String> stringSet = new HashSet<>();
-        String title1 = "First Title";
-        String title2 = "Second Title";
+        String title1 = "\nFirst Title---neha---2018";
+        String title2 = "\nSecond Title---neha---2018";
         stringSet.add(title1);
         stringSet.add(title2);
         assertEquals(stringSet, library.getTitleList());

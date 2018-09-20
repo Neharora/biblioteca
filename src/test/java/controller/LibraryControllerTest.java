@@ -1,14 +1,11 @@
 package controller;
 
-import model.Book;
+import helper.Helper;
 import model.Library;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.OutputDriver;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -19,12 +16,7 @@ class LibraryControllerTest {
 
     @BeforeEach
     void init() {
-        Set<Book> bookSet = new HashSet<>();
-        Book book1 = new Book("First Title");
-        Book book2 = new Book("Second Title");
-        bookSet.add(book1);
-        bookSet.add(book2);
-        Library library = new Library(bookSet);
+        Library library = new Helper().returnLibrary();
         outputDriver = mock(OutputDriver.class);
         libraryController = new LibraryController(outputDriver, library);
     }
@@ -40,7 +32,7 @@ class LibraryControllerTest {
     @Test
     void testForPrintingBooks() {
         libraryController.printListOfBooks();
-        verify(outputDriver).print("First Title");
-        verify(outputDriver).print("Second Title");
+        verify(outputDriver).print("\nFirst Title---neha---2018");
+        verify(outputDriver).print("\nSecond Title---neha---2018");
     }
 }
