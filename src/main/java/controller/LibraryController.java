@@ -9,7 +9,7 @@ public class LibraryController {
     private Library library;
     private final InputDriver inputDriver;
 
-    public LibraryController(final OutputDriver outputDriver,final Library library,final InputDriver inputDriver) {
+    public LibraryController(final OutputDriver outputDriver, final Library library, final InputDriver inputDriver) {
         this.outputDriver = outputDriver;
         this.library = library;
         this.inputDriver = inputDriver;
@@ -24,14 +24,14 @@ public class LibraryController {
     }
 
     public boolean askChoiceAndProceed() {
-        switch (inputDriver.askChoice()){
-            case 1:
-            {
+        switch (inputDriver.askChoice()) {
+            case 1: {
                 printListOfBooks();
                 return true;
             }
-            default:
-            {
+            case 2:
+                return true;
+            default: {
                 outputDriver.print("Select a valid option!");
                 return false;
             }
@@ -39,6 +39,6 @@ public class LibraryController {
     }
 
     public void printMenu() {
-        outputDriver.print("\nChoose a option \n1. List Books");
+        outputDriver.print("\nChoose a option \n1. List Books\n2.Quit");
     }
 }

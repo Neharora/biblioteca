@@ -21,7 +21,7 @@ class LibraryControllerTest {
         Library library = new Helper().returnLibrary();
         outputDriver = mock(OutputDriver.class);
         inputDriver = mock(InputDriver.class);
-        libraryController = new LibraryController(outputDriver, library,inputDriver);
+        libraryController = new LibraryController(outputDriver, library, inputDriver);
     }
 
     @DisplayName("test for printing the welcome message")
