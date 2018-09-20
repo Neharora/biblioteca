@@ -23,12 +23,22 @@ public class LibraryController {
         library.getTitleList().forEach(outputDriver::print);
     }
 
-    public void askChoiceAndProceed() {
+    public boolean askChoiceAndProceed() {
         switch (inputDriver.askChoice()){
             case 1:
+            {
                 printListOfBooks();
+                return true;
+            }
             default:
-                outputDriver.print("chosen wrong choice");
+            {
+                outputDriver.print("Select a valid option!");
+                return false;
+            }
         }
+    }
+
+    public void printMenu() {
+        outputDriver.print("\nChoose a option \n1. List Books");
     }
 }

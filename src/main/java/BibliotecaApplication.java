@@ -13,8 +13,12 @@ public class BibliotecaApplication {
         Library library = new Library(getDefaultBooks());
         LibraryController libraryController = new LibraryController(new OutputDriver(), library,new InputDriver());
         libraryController.printMessage();
-        System.out.println("\nChoose a option \n1. List Books");
-        libraryController.askChoiceAndProceed();
+        libraryController.printMenu();
+        boolean menuLoop = libraryController.askChoiceAndProceed();
+        while(!menuLoop)
+        {
+            menuLoop = libraryController.askChoiceAndProceed();
+        }
     }
 
     private static Set<Book> getDefaultBooks() {
