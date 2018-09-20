@@ -34,6 +34,7 @@ class LibraryTest {
         String title2 = "\nSecond Title---neha---2018";
         stringSet.add(title1);
         stringSet.add(title2);
+
         assertEquals(stringSet, library.getTitleList());
     }
 }
