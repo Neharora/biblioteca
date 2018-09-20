@@ -1,5 +1,7 @@
+package view;
+
 public class OutputDriver {
-    void print(String string) {
+    public void print(String string) {
         System.out.print(string);
     }
 }
