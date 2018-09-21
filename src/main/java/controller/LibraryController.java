@@ -20,25 +20,25 @@ public class LibraryController {
     }
 
     void printListOfBooks() {
+        outputDriver.print(" ============================================================");
         library.getTitleList().forEach(outputDriver::print);
+        outputDriver.print("\n ============================================================");
     }
 
     public boolean askChoiceAndProceed() {
-        switch (inputDriver.askChoice()) {
-            case 1: {
-                printListOfBooks();
-                return true;
-            }
-            case 2:
-                return true;
-            default: {
-                outputDriver.print("Select a valid option!");
-                return false;
-            }
+        int choice = inputDriver.askChoice() - 1;
+        if (choice >= 0 && choice <= 2) {
+            return Menu.values()[choice].proceed(this);
         }
+        return Menu.values()[2].proceed(this);
     }
 
     public void printMenu() {
-        outputDriver.print("\nChoose a option \n1. List Books\n2.Quit");
+        outputDriver.print("\nChoose a option \n1. List Books\n2.Checkout a book\n3.Quit");
+    }
+
+    void removeBook() {
+        String bookToCheckout = inputDriver.askForBookToCheckout();
+        outputDriver.print(library.removeBookFromList(bookToCheckout));
     }
 }

@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import view.InputDriver;
 import view.OutputDriver;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class LibraryControllerTest {
     private OutputDriver outputDriver;
@@ -37,15 +36,47 @@ class LibraryControllerTest {
     void testForPrintingBooks() {
         libraryController.printListOfBooks();
 
-        verify(outputDriver).print("\nFirst Title---neha---2018");
-        verify(outputDriver).print("\nSecond Title---neha---2018");
+        verify(outputDriver).print("\n|    FIRST TITLE              |    neha      |    2018      |");
+        verify(outputDriver).print("\n|    SECOND TITLE             |    neha      |    2018      |");
     }
 
     @DisplayName("Test for taking the input")
     @Test
     void testForAskingInput() {
+        when(inputDriver.askChoice()).thenReturn(1).thenReturn(4).thenReturn(2).thenReturn(3);
+
         libraryController.askChoiceAndProceed();
 
         verify(inputDriver).askChoice();
+        verify(outputDriver).print("\n|    FIRST TITLE              |    neha      |    2018      |");
+        verify(outputDriver).print("\n|    SECOND TITLE             |    neha      |    2018      |");
+    }
+
+    @DisplayName("test for printing the menu")
+    @Test
+    void testForPrinting() {
+        libraryController.printMenu();
+
+        verify(outputDriver).print("\nChoose a option \n1. List Books\n2.Quit");
+    }
+
+    @DisplayName("test asking book to checkout Book in list")
+    @Test
+    void testForCheckingoutBookInList() {
+
+        when(inputDriver.askForBookToCheckout()).thenReturn("FIRST TITLE");
+        libraryController.removeBook();
+        verify(inputDriver).askForBookToCheckout();
+        verify(outputDriver).print("FIRST TITLE");
+    }
+
+    @DisplayName("test asking book to checkout Book not in list")
+    @Test
+    void testForCheckingoutBookNotInList() {
+
+        when(inputDriver.askForBookToCheckout()).thenReturn("SIXTH TITLE");
+        libraryController.removeBook();
+        verify(inputDriver).askForBookToCheckout();
+        verify(outputDriver).print("Sorry No Such Book");
     }
 }

@@ -5,9 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LibraryTest {
@@ -29,12 +26,15 @@ class LibraryTest {
     @DisplayName("Test to get the print list of books from library")
     @Test
     void testForPrintingListOfBooks() {
-        Set<String> stringSet = new HashSet<>();
-        String title1 = "\nFirst Title---neha---2018";
-        String title2 = "\nSecond Title---neha---2018";
-        stringSet.add(title1);
-        stringSet.add(title2);
 
-        assertEquals(stringSet, library.getTitleList());
+        assertEquals(new Helper().getDeatilsOfBooks(), library.getTitleList());
+    }
+
+    @DisplayName("Test to remove a book expects true if removed")
+    @Test
+    void testForRemovingBook() {
+
+        assertEquals("SECOND TITLE", library.removeBookFromList("SECOND TITLE"));
+        assertEquals("Sorry No Such Book", library.removeBookFromList("SECOND TITLE"));
     }
 }

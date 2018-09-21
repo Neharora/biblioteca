@@ -1,14 +1,14 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Library {
 
     private static final String WELCOME_MESSAGE = "Welcome to library pathshala";
-    private Set<Book> bookSet;
+    private List<Book> bookSet;
 
-    public Library(Set<Book> bookSet) {
+    public Library(List<Book> bookSet) {
         this.bookSet = bookSet;
     }
 
@@ -16,9 +16,19 @@ public class Library {
         return WELCOME_MESSAGE;
     }
 
-    public Set<String> getTitleList() {
-        Set<String> bookTitles = new HashSet<>();
+    public List<String> getTitleList() {
+        List<String> bookTitles = new ArrayList<>();
         bookSet.forEach(book -> bookTitles.add(book.getString()));
         return bookTitles;
+    }
+
+    public String removeBookFromList(String bookToCheckout) {
+        for (Book aBookSet : bookSet) {
+            if (aBookSet.isSameTitle(bookToCheckout)) {
+                bookSet.remove(aBookSet);
+                return aBookSet.getTitleName();
+            }
+        }
+        return "Sorry No Such Book";
     }
 }
