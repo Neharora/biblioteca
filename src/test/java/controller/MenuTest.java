@@ -3,6 +3,7 @@ package controller;
 import helper.Helper;
 import model.Library;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputDriver;
 import view.OutputDriver;
@@ -10,6 +11,7 @@ import view.OutputDriver;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class MenuTest {
     private LibraryController libraryController;
@@ -22,6 +24,7 @@ class MenuTest {
         libraryController = new LibraryController(outputDriver, library, inputDriver);
     }
 
+    @DisplayName("test for calling proceed on print books")
     @Test
     void testForPrintBooks() {
         Menu menu = Menu.PRINT_BOOKS;
@@ -31,6 +34,7 @@ class MenuTest {
         assertFalse(returnType);
     }
 
+    @DisplayName("test for calling proceed on quit")
     @Test
     void testForQuit() {
         Menu menu = Menu.QUIT;
@@ -40,15 +44,27 @@ class MenuTest {
         assertTrue(returnType);
     }
 
-    @Test
-    void testForDefault() {
 
-        Menu menu = Menu.DEFAULT;
+    @DisplayName("test for calling proceed on checkout")
+    @Test
+    void testForCheckoutBook() {
+
+        Menu menu = Menu.CHECKOUT;
 
         boolean returnType = menu.proceed(libraryController);
 
         assertFalse(returnType);
     }
 
+    @DisplayName("test for calling proceed on print books")
+    @Test
+    void testForCheckingRemove() {
+
+        Menu menu = Menu.CHECKOUT;
+        LibraryController mockLibraryController = mock(LibraryController.class);
+        menu.proceed(mockLibraryController);
+
+        verify(mockLibraryController).removeBook();
+    }
 
 }

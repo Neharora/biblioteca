@@ -40,10 +40,10 @@ class LibraryControllerTest {
         verify(outputDriver).print("\n|    SECOND TITLE             |    neha      |    2018      |");
     }
 
-    @DisplayName("Test for taking the input")
+    @DisplayName("Test for taking the input as book list")
     @Test
-    void testForAskingInput() {
-        when(inputDriver.askChoice()).thenReturn(1).thenReturn(4).thenReturn(2).thenReturn(3);
+    void testForAskingInput1() {
+        when(inputDriver.askChoice()).thenReturn(1);
 
         libraryController.askChoiceAndProceed();
 
@@ -52,31 +52,45 @@ class LibraryControllerTest {
         verify(outputDriver).print("\n|    SECOND TITLE             |    neha      |    2018      |");
     }
 
+
+
+
+    @DisplayName("Test for taking the input as wrong choice")
+    @Test
+    void testForAskingInput5() {
+        when(inputDriver.askChoice()).thenReturn(5);
+
+        libraryController.askChoiceAndProceed();
+
+        verify(inputDriver).askChoice();
+        verify(outputDriver).print("Re-enter Your Choice !");
+    }
+
     @DisplayName("test for printing the menu")
     @Test
     void testForPrinting() {
         libraryController.printMenu();
 
-        verify(outputDriver).print("\nChoose a option \n1. List Books\n2.Quit");
+        verify(outputDriver).print("\nChoose a option \n1. List Books\n2.Checkout a book\n3.Quit");
     }
 
-    @DisplayName("test asking book to checkout Book in list")
+    @DisplayName("test to checkout Book in the list")
     @Test
     void testForCheckingoutBookInList() {
 
         when(inputDriver.askForBookToCheckout()).thenReturn("FIRST TITLE");
         libraryController.removeBook();
         verify(inputDriver).askForBookToCheckout();
-        verify(outputDriver).print("FIRST TITLE");
+        verify(outputDriver).print("Thank you! Enjoy the book.");
     }
 
-    @DisplayName("test asking book to checkout Book not in list")
+    @DisplayName("test to checkout Book not in the list")
     @Test
     void testForCheckingoutBookNotInList() {
 
         when(inputDriver.askForBookToCheckout()).thenReturn("SIXTH TITLE");
         libraryController.removeBook();
         verify(inputDriver).askForBookToCheckout();
-        verify(outputDriver).print("Sorry No Such Book");
+        verify(outputDriver).print("That book is not available.");
     }
 }

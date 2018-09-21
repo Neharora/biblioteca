@@ -27,14 +27,14 @@ class LibraryTest {
     @Test
     void testForPrintingListOfBooks() {
 
-        assertEquals(new Helper().getDeatilsOfBooks(), library.getTitleList());
+        assertEquals(new Helper().getDeatilsOfBooks(), library.getList());
     }
 
     @DisplayName("Test to remove a book expects true if removed")
     @Test
     void testForRemovingBook() {
 
-        assertEquals("SECOND TITLE", library.removeBookFromList("SECOND TITLE"));
-        assertEquals("Sorry No Such Book", library.removeBookFromList("SECOND TITLE"));
+        assertEquals("Thank you! Enjoy the book.", library.removeBookFromList("SECOND TITLE"));
+        assertEquals("That book is not available.", library.removeBookFromList("SECOND TITLE"));
     }
 }

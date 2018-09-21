@@ -5,6 +5,9 @@ import view.InputDriver;
 import view.OutputDriver;
 
 public class LibraryController {
+    private final String RE_ENTER_MESSAGE = "Re-enter Your Choice !";
+    private final String HORIZONTAL_LINE = " ============================================================";
+    private final String MENU = "\nChoose a option \n1. List Books\n2.Checkout a book\n3.Quit";
     private final OutputDriver outputDriver;
     private Library library;
     private final InputDriver inputDriver;
@@ -20,9 +23,9 @@ public class LibraryController {
     }
 
     void printListOfBooks() {
-        outputDriver.print(" ============================================================");
-        library.getTitleList().forEach(outputDriver::print);
-        outputDriver.print("\n ============================================================");
+        outputDriver.print(HORIZONTAL_LINE);
+        library.getList().forEach(outputDriver::print);
+        outputDriver.print("\n"+HORIZONTAL_LINE);
     }
 
     public boolean askChoiceAndProceed() {
@@ -30,11 +33,12 @@ public class LibraryController {
         if (choice >= 0 && choice <= 2) {
             return Menu.values()[choice].proceed(this);
         }
-        return Menu.values()[2].proceed(this);
+        outputDriver.print(RE_ENTER_MESSAGE);
+        return false;
     }
 
     public void printMenu() {
-        outputDriver.print("\nChoose a option \n1. List Books\n2.Checkout a book\n3.Quit");
+        outputDriver.print(MENU);
     }
 
     void removeBook() {

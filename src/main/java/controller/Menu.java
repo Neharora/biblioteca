@@ -20,13 +20,6 @@ enum Menu {
         public boolean proceed(LibraryController libraryController) {
             return true;
         }
-    },
-    DEFAULT {
-        @Override
-        public boolean proceed(LibraryController libraryController) {
-            System.out.println("Re-enter your choice!");
-            return false;
-        }
     };
 
     public abstract boolean proceed(LibraryController libraryController);
