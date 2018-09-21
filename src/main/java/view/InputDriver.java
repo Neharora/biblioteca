@@ -8,7 +8,7 @@ public class InputDriver {
         return input.nextInt();
     }
 
-    public String askForBookToCheckout() {
+    public String askForBookName() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }

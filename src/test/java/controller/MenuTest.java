@@ -44,6 +44,15 @@ class MenuTest {
         assertTrue(returnType);
     }
 
+    @DisplayName("test for calling proceed on check in")
+    @Test
+    void testForCheckIn() {
+        Menu menu = Menu.CHECK_IN;
+
+        boolean returnType = menu.proceed(libraryController);
+
+        assertFalse(returnType);
+    }
 
     @DisplayName("test for calling proceed on checkout")
     @Test
@@ -56,15 +65,28 @@ class MenuTest {
         assertFalse(returnType);
     }
 
-    @DisplayName("test for calling proceed on print books")
+    @DisplayName("test for checking functionality of remove book")
     @Test
-    void testForCheckingRemove() {
+    void testForCheckingRemoveBookFunction() {
 
         Menu menu = Menu.CHECKOUT;
         LibraryController mockLibraryController = mock(LibraryController.class);
+
         menu.proceed(mockLibraryController);
 
         verify(mockLibraryController).removeBook();
+    }
+
+    @DisplayName("test for checking functionality of add book")
+    @Test
+    void testForCheckingAddBookFunction() {
+
+        Menu menu = Menu.CHECK_IN;
+        LibraryController mockLibraryController = mock(LibraryController.class);
+
+        menu.proceed(mockLibraryController);
+
+        verify(mockLibraryController).addBook();
     }
 
 }

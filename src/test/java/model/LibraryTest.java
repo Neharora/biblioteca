@@ -20,7 +20,7 @@ class LibraryTest {
     @Test
     void testForWelcomeMessage() {
 
-        assertEquals("Welcome to library pathshala", library.getWelcomeMessage());
+        assertEquals("Welcome to library pathshala\n", library.getWelcomeMessage());
     }
 
     @DisplayName("Test to get the print list of books from library")
@@ -34,7 +34,17 @@ class LibraryTest {
     @Test
     void testForRemovingBook() {
 
-        assertEquals("Thank you! Enjoy the book.", library.removeBookFromList("SECOND TITLE"));
-        assertEquals("That book is not available.", library.removeBookFromList("SECOND TITLE"));
+        assertEquals("Thank you! Enjoy the book.\n", library.removeBookFromList("SECOND TITLE"));
+        assertEquals("That book is not available.\n", library.removeBookFromList("SECOND TITLE"));
+    }
+
+    @DisplayName("Test to add a book expects true if added")
+    @Test
+    void testForAddingBook() {
+
+        library.removeBookFromList("SECOND TITLE");
+
+        assertEquals("Thank you for returning the book.\n", library.addBookToList("SECOND TITLE"));
+        assertEquals("That is not a valid book to return.\n", library.addBookToList("SIXTH TITLE"));
     }
 }

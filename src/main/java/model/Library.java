@@ -5,13 +5,18 @@ import java.util.List;
 
 public class Library {
 
-    private static final String WELCOME_MESSAGE = "Welcome to library pathshala";
-    private static final String SUCCESS_MESSAGE_FOR_CEHECKOUT = "Thank you! Enjoy the book.";
-    private static final String UNSUCCESS_MESSAGE_FOR_CEHECKOUT = "That book is not available.";
-    private List<Book> bookSet;
+    private static final String WELCOME_MESSAGE = "Welcome to library pathshala\n";
+    private static final String SUCCESS_MESSAGE_FOR_CHECKOUT = "Thank you! Enjoy the book.\n";
+    private static final String UNSUCCESS_MESSAGE_FOR_CHECKOUT = "That book is not available.\n";
+    private static final String SUCCESS_MESSAGE_FOR_CHECKIN = "Thank you for returning the book.\n";
+    private static final String UNSUCCESS_MESSAGE_FOR_CHECKIN = "That is not a valid book to return.\n";
+    private List<Book> presentBookSet;
+    private List<Book> checkedOutBooks;
 
-    public Library(List<Book> bookSet) {
-        this.bookSet = bookSet;
+
+    public Library(List<Book> presentBookSet) {
+        this.checkedOutBooks = new ArrayList<>();
+        this.presentBookSet = presentBookSet;
     }
 
     public String getWelcomeMessage() {
@@ -20,17 +25,29 @@ public class Library {
 
     public List<String> getList() {
         List<String> bookTitles = new ArrayList<>();
-        bookSet.forEach(book -> bookTitles.add(book.getString()));
+        presentBookSet.forEach(book -> bookTitles.add(book.getString()));
         return bookTitles;
     }
 
     public String removeBookFromList(String bookToCheckout) {
-        for (Book aBookSet : bookSet) {
+        for (Book aBookSet : presentBookSet) {
             if (aBookSet.isSameTitle(bookToCheckout)) {
-                bookSet.remove(aBookSet);
-                return SUCCESS_MESSAGE_FOR_CEHECKOUT;
+                presentBookSet.remove(aBookSet);
+                checkedOutBooks.add(aBookSet);
+                return SUCCESS_MESSAGE_FOR_CHECKOUT;
             }
         }
-        return UNSUCCESS_MESSAGE_FOR_CEHECKOUT;
+        return UNSUCCESS_MESSAGE_FOR_CHECKOUT;
     }
+
+   public String addBookToList(String bookToCheckIn) {
+        for(Book book : checkedOutBooks) {
+            if(book.isSameTitle(bookToCheckIn)) {
+                checkedOutBooks.remove(book);
+                presentBookSet.add(book);
+                return SUCCESS_MESSAGE_FOR_CHECKIN;
+            }
+        }
+        return UNSUCCESS_MESSAGE_FOR_CHECKIN;
+   }
 }

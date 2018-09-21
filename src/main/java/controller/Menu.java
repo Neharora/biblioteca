@@ -15,6 +15,13 @@ enum Menu {
             return false;
         }
     },
+    CHECK_IN {
+        @Override
+        public boolean proceed(LibraryController libraryController) {
+            libraryController.addBook();
+            return false;
+        }
+    },
     QUIT {
         @Override
         public boolean proceed(LibraryController libraryController) {
