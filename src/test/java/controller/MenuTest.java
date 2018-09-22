@@ -9,19 +9,19 @@ import view.InputDriver;
 import view.OutputDriver;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class MenuTest {
-    private LibraryController libraryController;
+    private Library library;
+    private OutputDriver outputDriver;
+    private InputDriver inputDriver;
+
 
     @BeforeEach
     void init() {
-        Library library = new Helper().returnLibrary();
-        OutputDriver outputDriver = mock(OutputDriver.class);
-        InputDriver inputDriver = mock(InputDriver.class);
-        libraryController = new LibraryController(outputDriver, library, inputDriver);
+        library = new Helper().returnLibrary();
+        outputDriver = mock(OutputDriver.class);
+        inputDriver = mock(InputDriver.class);
     }
 
     @DisplayName("test for calling proceed on print books")
@@ -29,64 +29,73 @@ class MenuTest {
     void testForPrintBooks() {
         Menu menu = Menu.PRINT_BOOKS;
 
-        boolean returnType = menu.proceed(libraryController);
+        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
 
         assertFalse(returnType);
+        verify(outputDriver).print("\n|    FIRST TITLE              |    neha      |    2018      |");
+        verify(outputDriver).print("\n|    FIFTH TITLE              |    neha      |    2018      |");
     }
 
-    @DisplayName("test for calling proceed on quit")
-    @Test
-    void testForQuit() {
-        Menu menu = Menu.QUIT;
-
-        boolean returnType = menu.proceed(libraryController);
-
-        assertTrue(returnType);
-    }
-
-    @DisplayName("test for calling proceed on check in")
+    @DisplayName("test for calling proceed on check in for book")
     @Test
     void testForCheckIn() {
-        Menu menu = Menu.CHECK_IN;
+        Menu menu = Menu.CHECK_IN_BOOK;
+        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE");
 
-        boolean returnType = menu.proceed(libraryController);
+        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
 
         assertFalse(returnType);
+        verify(inputDriver).askForItemName();
+        verify(outputDriver).print("Enter Book Name : ");
+        verify(outputDriver).print("That is not a valid item to return.\n");
     }
 
-    @DisplayName("test for calling proceed on checkout")
+    @DisplayName("test for calling proceed on checkout for book")
     @Test
     void testForCheckoutBook() {
 
-        Menu menu = Menu.CHECKOUT;
+        Menu menu = Menu.CHECKOUT_BOOKS;
+        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE").thenReturn("FIRST TITLE");
 
-        boolean returnType = menu.proceed(libraryController);
+        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
 
         assertFalse(returnType);
+        verify(outputDriver).print("Thank you! Enjoy the item.\n");
+        verify(outputDriver).print("That item is not available.\n");
     }
 
-    @DisplayName("test for checking functionality of remove book")
+    @DisplayName("test for checking functionality of remove movie")
     @Test
     void testForCheckingRemoveBookFunction() {
 
-        Menu menu = Menu.CHECKOUT;
-        LibraryController mockLibraryController = mock(LibraryController.class);
+        Menu menu = Menu.CHECKOUT_MOVIES;
 
-        menu.proceed(mockLibraryController);
 
-        verify(mockLibraryController).removeBook();
+        when(inputDriver.askForItemName()).thenReturn("AVENGERS").thenReturn("AVENGERS");
+
+        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
+
+        assertFalse(returnType);
+        verify(outputDriver).print("Thank you! Enjoy the item.\n");
+        verify(outputDriver).print("That item is not available.\n");
     }
 
-    @DisplayName("test for checking functionality of add book")
+    @DisplayName("test for checking functionality of add movie")
     @Test
     void testForCheckingAddBookFunction() {
 
-        Menu menu = Menu.CHECK_IN;
-        LibraryController mockLibraryController = mock(LibraryController.class);
+        Menu menu = Menu.CHECK_IN_MOVIES;
 
-        menu.proceed(mockLibraryController);
+        when(inputDriver.askForItemName()).thenReturn("AVENGERS");
 
-        verify(mockLibraryController).addBook();
+        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+
+        assertFalse(returnType);
+        verify(inputDriver).askForItemName();
+        verify(outputDriver).print("Enter Movie Name : ");
+        verify(outputDriver).print("That is not a valid item to return.\n");
     }
 
 }

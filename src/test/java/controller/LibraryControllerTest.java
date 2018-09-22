@@ -31,15 +31,6 @@ class LibraryControllerTest {
         verify(outputDriver).print("Welcome to library pathshala\n");
     }
 
-    @DisplayName("Test for printing the list of books")
-    @Test
-    void testForPrintingBooks() {
-        libraryController.printListOfBooks();
-
-        verify(outputDriver).print("\n|    FIRST TITLE              |    neha      |    2018      |");
-        verify(outputDriver).print("\n|    SECOND TITLE             |    neha      |    2018      |");
-    }
-
     @DisplayName("Test for taking the input as book list")
     @Test
     void testForAskingInput1() {
@@ -56,7 +47,7 @@ class LibraryControllerTest {
     @DisplayName("Test for taking the input as wrong choice")
     @Test
     void testForAskingInput5() {
-        when(inputDriver.askChoice()).thenReturn(5);
+        when(inputDriver.askChoice()).thenReturn(9);
 
         libraryController.askChoiceAndProceed();
 
@@ -69,56 +60,6 @@ class LibraryControllerTest {
     void testForPrinting() {
         libraryController.printMenu();
 
-        verify(outputDriver).print("\nChoose a option \n1. List Books\n2.Checkout a book\n3.CheckIn a book\n4.Quit\n");
-    }
-
-    @DisplayName("test to checkout Book in the list")
-    @Test
-    void testForCheckingoutBookInList() {
-
-        when(inputDriver.askForBookName()).thenReturn("FIRST TITLE");
-
-        libraryController.removeBook();
-
-        verify(inputDriver).askForBookName();
-        verify(outputDriver).print("Thank you! Enjoy the book.\n");
-    }
-
-    @DisplayName("test to checkout Book not in the list")
-    @Test
-    void testForCheckingoutBookNotInList() {
-
-        when(inputDriver.askForBookName()).thenReturn("SIXTH TITLE");
-
-        libraryController.removeBook();
-
-        verify(inputDriver).askForBookName();
-        verify(outputDriver).print("That book is not available.\n");
-    }
-
-    @DisplayName("test to checkin Book checked out from library")
-    @Test
-    void testForCheckingInBookInList() {
-
-        when(inputDriver.askForBookName()).thenReturn("FIRST TITLE").thenReturn("FIRST TITLE");
-
-        libraryController.removeBook();
-        libraryController.addBook();
-
-        verify(inputDriver, times(2)).askForBookName();
-        verify(outputDriver).print("Thank you! Enjoy the book.\n");
-        verify(outputDriver).print("Thank you for returning the book.\n");
-    }
-
-    @DisplayName("test to checin Book not checked out from library")
-    @Test
-    void testForCheckingInBookNotInList() {
-
-        when(inputDriver.askForBookName()).thenReturn("SIXTH TITLE");
-
-        libraryController.addBook();
-
-        verify(inputDriver).askForBookName();
-        verify(outputDriver).print("That is not a valid book to return.\n");
+        verify(outputDriver).print("\nChoose a option \n1. List Books\n2.List Movies\n3.Checkout book\n4.Return book\n5.Checkout Movie\n6.Return movie\n7.Quit\n");
     }
 }

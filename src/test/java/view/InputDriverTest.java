@@ -39,7 +39,7 @@ class InputDriverTest {
     void getBookNameToCheckout() {
         setSystemIn("FIRST TITLE");
 
-        assertEquals("FIRST TITLE", inputDriver.askForBookName());
+        assertEquals("FIRST TITLE", inputDriver.askForItemName());
     }
 
     private void setSystemIn(String string) {

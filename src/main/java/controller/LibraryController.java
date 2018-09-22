@@ -5,9 +5,6 @@ import view.InputDriver;
 import view.OutputDriver;
 
 public class LibraryController {
-    private final String RE_ENTER_MESSAGE = "Re-enter Your Choice !\n";
-    private final String HORIZONTAL_LINE = " ============================================================";
-    private final String MENU = "\nChoose a option \n1. List Books\n2.Checkout a book\n3.CheckIn a book\n4.Quit\n";
     private final OutputDriver outputDriver;
     private Library library;
     private final InputDriver inputDriver;
@@ -22,32 +19,19 @@ public class LibraryController {
         outputDriver.print(library.getWelcomeMessage());
     }
 
-    void printListOfBooks() {
-        outputDriver.print(HORIZONTAL_LINE);
-        library.getList().forEach(outputDriver::print);
-        outputDriver.print("\n" + HORIZONTAL_LINE + "\n");
-    }
-
     public boolean askChoiceAndProceed() {
         int choice = inputDriver.askChoice() - 1;
-        if (choice >= 0 && choice <= 3) {
-            return Menu.values()[choice].proceed(this);
+        if (choice >= 0 && choice <= 6) {
+            return Menu.values()[choice].proceed(outputDriver, library, inputDriver);
         }
+        String RE_ENTER_MESSAGE = "Re-enter Your Choice !\n";
         outputDriver.print(RE_ENTER_MESSAGE);
         return false;
     }
 
     public void printMenu() {
+        String MENU = "\nChoose a option \n1. List Books\n2.List Movies\n3.Checkout book\n4.Return book\n5.Checkout Movie\n6.Return movie\n7.Quit\n";
         outputDriver.print(MENU);
     }
 
-    void removeBook() {
-        String bookToCheckout = inputDriver.askForBookName();
-        outputDriver.print(library.removeBookFromList(bookToCheckout));
-    }
-
-    void addBook() {
-        String bookToCheckIn = inputDriver.askForBookName();
-        outputDriver.print(library.addBookToList(bookToCheckIn));
-    }
 }

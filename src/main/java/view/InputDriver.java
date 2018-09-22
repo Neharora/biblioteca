@@ -8,7 +8,7 @@ public class InputDriver {
         return input.nextInt();
     }
 
-    public String askForBookName() {
+    public String askForItemName() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }
