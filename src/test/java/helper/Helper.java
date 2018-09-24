@@ -78,10 +78,10 @@ public class Helper {
                 new Email("neha.arora@thoughtworks.com"),
                 new PhoneNumber(1233456789));
 
-        User user1 = new User(new UserId(1234567), new UserPassword("Nehar"), userInformation);
+        User user1 = new User(new UserId(1234566), new UserPassword("Nehad"), userInformation);
         User user2 = new User(new UserId(1234568), new UserPassword("Nehaq"), userInformation);
         User user3 = new User(new UserId(1234569), new UserPassword("Nehaa"), userInformation);
-        User user4 = new User(new UserId(1234566), new UserPassword("Nehad"), userInformation);
+        User user4 = new User(new UserId(1234567), new UserPassword("Nehar"), userInformation);
         User user5 = new User(new UserId(1234565), new UserPassword("Nehaf"), userInformation);
 
         users.add(user1);

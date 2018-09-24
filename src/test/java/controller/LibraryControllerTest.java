@@ -37,12 +37,12 @@ class LibraryControllerTest {
     @DisplayName("Test for taking the input as book list")
     @Test
     void testForAskingInput1() {
-        when(inputDriver.askIntegerChoice()).thenReturn(1).thenReturn(1234567).thenReturn(1).thenReturn(8);
+        when(inputDriver.askIntegerChoice()).thenReturn(1).thenReturn(1234567).thenReturn(1).thenReturn(8).thenReturn(2);
         when(inputDriver.askInputAsString()).thenReturn("Nehar");
 
         libraryController.askChoiceAndProceed();
 
-        verify(inputDriver,times(4)).askIntegerChoice();
+        verify(inputDriver,times(5)).askIntegerChoice();
         verify(outputDriver).print(ENTER_USER_DETAILS);
         verify(inputDriver).askInputAsString();
         verify(outputDriver).print(String.format(STRING_FORMATTER_BOOK,"FIRST TITLE","neha",2018));

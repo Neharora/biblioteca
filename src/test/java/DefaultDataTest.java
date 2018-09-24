@@ -30,9 +30,6 @@ class DefaultDataTest {
         Set<User> userSet = new Helper().getDefaultUsers();
         Set<User> userSetFromRepository = bookRepositary.getDefaultUsers();
 
-        System.out.println(userSet+"\n\n\n");
-        System.out.println(userSetFromRepository);
-
-        assertTrue(userSet.equals(userSetFromRepository));
+        assertTrue(userSet.containsAll(userSetFromRepository));
     }
 }

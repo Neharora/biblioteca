@@ -3,7 +3,7 @@ package main;
 public class Constants {
     public static final String RE_ENTER_YOUR_CHOICE = "Re-enter Your Choice !\n";
     public static final String MENU_WITHOUT_LOGIN = "\nChoose a option \n1.Login\n2.Quit\n";
-    public static final String MENU_WITH_LOGIN = "\nChoose a option \n1.List Books\n2.List Movies\n3.Checkout book\n4.Return book\n5.Checkout Movie\n6.Return movie\n7.Customer Information\n8.Quit\n";
+    public static final String MENU_WITH_LOGIN = "\nChoose a option \n1.List Books\n2.List Movies\n3.Checkout book\n4.Return book\n5.Checkout Movie\n6.Return movie\n7.Customer Information\n8.LogOut\n";
     public static final String WELCOME_MESSAGE = "Welcome to library pathshala\n";
     public static final String SUCCESS_MESSAGE_FOR_CHECKOUT = "Thank you! Enjoy the item.\n";
     public static final String UNSUCCESS_MESSAGE_FOR_CHECKOUT = "That item is not available.\n";

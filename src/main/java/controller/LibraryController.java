@@ -29,7 +29,7 @@ public class LibraryController {
             choice = inputDriver.askIntegerChoice() - 1;
             if (choice >= 0 && choice < MenuBeforeLogin.values().length) {
                 MenuBeforeLogin.values()[choice].proceed(outputDriver, library, inputDriver);
-                return;
+//                return;
             } else {
                 outputDriver.print(RE_ENTER_YOUR_CHOICE);
             }
