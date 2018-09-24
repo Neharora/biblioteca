@@ -4,7 +4,12 @@ import model.*;
 import org.junit.jupiter.api.Disabled;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static main.Constants.STRING_FORMATTER_BOOK;
+import static main.Constants.STRING_FORMATTER_MOVIE;
 
 @Disabled
 public class Helper {
@@ -37,33 +42,54 @@ public class Helper {
         return bookSet;
     }
 
-    public List<String> getDeatilsOfBooks() {
-        List<String> stringSet = new ArrayList<>();
-        String title1 = "\n|    FIRST TITLE              |    neha      |    2018      |";
-        String title2 = "\n|    SECOND TITLE             |    neha      |    2018      |";
-        String title3 = "\n|    THIRD TITLE              |    neha      |    2018      |";
-        String title4 = "\n|    FOURTH TITLE             |    neha      |    2018      |";
-        String title5 = "\n|    FIFTH TITLE              |    neha      |    2018      |";
-        stringSet.add(title1);
-        stringSet.add(title2);
-        stringSet.add(title3);
-        stringSet.add(title4);
-        stringSet.add(title5);
-        return stringSet;
+    public List<String> getDetailsOfBooks() {
+        List<String> stringList = new ArrayList<>();
+        String title1 = String.format(STRING_FORMATTER_BOOK,"FIRST TITLE","neha",2018);
+        String title2 = String.format(STRING_FORMATTER_BOOK,"SECOND TITLE","neha",2018);
+        String title3 = String.format(STRING_FORMATTER_BOOK,"THIRD TITLE","neha",2018);
+        String title4 = String.format(STRING_FORMATTER_BOOK,"FOURTH TITLE","neha",2018);
+        String title5 = String.format(STRING_FORMATTER_BOOK,"FIFTH TITLE","neha",2018);
+        stringList.add(title1);
+        stringList.add(title2);
+        stringList.add(title3);
+        stringList.add(title4);
+        stringList.add(title5);
+        return stringList;
     }
 
-    public List<String> getDeatilsOfMovies() {
-        List<String> stringSet = new ArrayList<>();
-        String title1 = "\n|    AVENGERS                 |    neha       |    2018       |    8 |";
-        String title2 = "\n|    SECOND TITLE             |    neha       |    2018       |    8 |";
-        String title3 = "\n|    THIRD TITLE              |    neha       |    2018       |    7 |";
-        String title4 = "\n|    FOURTH TITLE             |    neha       |    2018       |    6 |";
-        String title5 = "\n|    FIFTH TITLE              |    neha       |    2018       |    8 |";
-        stringSet.add(title1);
-        stringSet.add(title2);
-        stringSet.add(title3);
-        stringSet.add(title4);
-        stringSet.add(title5);
-        return stringSet;
+    public List<String> getDetailsOfMovies() {
+        List<String> stringList = new ArrayList<>();
+        String title1 = String.format(STRING_FORMATTER_MOVIE,"AVENGERS","neha",2018,8);
+        String title2 = String.format(STRING_FORMATTER_MOVIE,"SECOND TITLE","neha",2018,8);
+        String title3 = String.format(STRING_FORMATTER_MOVIE,"THIRD TITLE","neha",2018,7);
+        String title4 = String.format(STRING_FORMATTER_MOVIE,"FOURTH TITLE","neha",2018,6);
+        String title5 = String.format(STRING_FORMATTER_MOVIE,"FIFTH TITLE","neha",2018,8);
+        stringList.add(title1);
+        stringList.add(title2);
+        stringList.add(title3);
+        stringList.add(title4);
+        stringList.add(title5);
+        return stringList;
+    }
+
+    public Set<User> getDefaultUsers() {
+        Set<User> users = new HashSet<>();
+        UserInformation userInformation = new UserInformation("neha",
+                new Email("neha.arora@thoughtworks.com"),
+                new PhoneNumber(1233456789));
+
+        User user1 = new User(new UserId(1234567), new UserPassword("Nehar"), userInformation);
+        User user2 = new User(new UserId(1234568), new UserPassword("Nehaq"), userInformation);
+        User user3 = new User(new UserId(1234569), new UserPassword("Nehaa"), userInformation);
+        User user4 = new User(new UserId(1234566), new UserPassword("Nehad"), userInformation);
+        User user5 = new User(new UserId(1234565), new UserPassword("Nehaf"), userInformation);
+
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+
+        return users;
     }
 }

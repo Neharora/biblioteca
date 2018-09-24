@@ -28,7 +28,7 @@ class CheckOutListTest {
     @Test
     void testForCheckOutMovie() {
         ItemType itemType = ItemType.MOVIE;
-        when(inputDriver.askForItemName()).thenReturn("AVENGERS");
+        when(inputDriver.askInputAsString()).thenReturn("AVENGERS");
         when(library.removeItemFromList("AVENGERS", itemType)).thenReturn("Thank you! Enjoy the item.\n");
 
         checkOutList.action(outputDriver, library, inputDriver, itemType);
@@ -40,7 +40,7 @@ class CheckOutListTest {
     @Test
     void testForCheckOutBook() {
         ItemType itemType = ItemType.BOOK;
-        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE");
+        when(inputDriver.askInputAsString()).thenReturn("FIRST TITLE");
         when(library.removeItemFromList("FIRST TITLE", itemType)).thenReturn("That item is not available.\n");
 
         checkOutList.action(outputDriver, library, inputDriver, itemType);

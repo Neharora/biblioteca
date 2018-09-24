@@ -18,7 +18,7 @@ class BookTest {
     @DisplayName("test for printing the books details")
     @Test
     void testForPrint() {
-        assertEquals("\n|    FIRST TITLE              |    neha      |    2018      |", book1.getDetails(BOOK));
+        assertEquals(String.format("\n|    %-25s|    %-10s|    %-10s|", "FIRST TITLE", "neha", 2018), book1.getDetails(BOOK));
     }
 
     @DisplayName("test for checking whether titles are equal or not")

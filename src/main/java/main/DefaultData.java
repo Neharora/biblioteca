@@ -1,19 +1,20 @@
-import model.Book;
-import model.ItemType;
-import model.LibraryItem;
-import model.Movie;
+package main;
+
+import model.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-class DefaultRepositary {
+public class DefaultData {
     private List<LibraryItem> defaultBooks;
 
-    DefaultRepositary() {
+    public DefaultData() {
         this.defaultBooks = new ArrayList<>();
     }
 
-    List<LibraryItem> getDefaultList() {
+    public List<LibraryItem> getDefaultList() {
         Book book1 = new Book("FIRST TITLE", "neha", 2018, ItemType.BOOK);
         Book book2 = new Book("SECOND TITLE", "neha", 2018, ItemType.BOOK);
         Book book3 = new Book("THIRD TITLE", "neha", 2018, ItemType.BOOK);
@@ -35,5 +36,21 @@ class DefaultRepositary {
         defaultBooks.add(movie3);
         defaultBooks.add(movie4);
         return defaultBooks;
+    }
+
+    public Set<User> getDefaultUsers() {
+        Set<User> userList = new HashSet<>();
+        UserInformation userInformation = new UserInformation("neha", new Email("neha.arora@thoughtworks.com"), new PhoneNumber(1233456789));
+        User user1 = new User(new UserId(1234567), new UserPassword("Nehar"), userInformation);
+        User user2 = new User(new UserId(1234568), new UserPassword("Nehaq"), userInformation);
+        User user3 = new User(new UserId(1234569), new UserPassword("Nehaa"), userInformation);
+        User user4 = new User(new UserId(1234566), new UserPassword("Nehad"), userInformation);
+        User user5 = new User(new UserId(1234565), new UserPassword("Nehaf"), userInformation);
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        userList.add(user4);
+        userList.add(user5);
+        return userList;
     }
 }

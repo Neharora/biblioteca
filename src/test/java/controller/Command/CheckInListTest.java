@@ -28,7 +28,7 @@ class CheckInListTest {
     @Test
     void testForCheckInMovie() {
         ItemType itemType = ItemType.MOVIE;
-        when(inputDriver.askForItemName()).thenReturn("AVENGERS");
+        when(inputDriver.askInputAsString()).thenReturn("AVENGERS");
         when(library.addItemToList("AVENGERS", itemType)).thenReturn("That is not a valid item to return.\n");
 
         checkInList.action(outputDriver, library, inputDriver, itemType);
@@ -40,7 +40,7 @@ class CheckInListTest {
     @Test
     void testForCheckInBook() {
         ItemType itemType = ItemType.BOOK;
-        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE");
+        when(inputDriver.askInputAsString()).thenReturn("FIRST TITLE");
         when(library.addItemToList("FIRST TITLE", itemType)).thenReturn("Thank you for returning the item.\n");
 
         checkInList.action(outputDriver, library, inputDriver, itemType);

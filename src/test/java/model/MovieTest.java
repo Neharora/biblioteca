@@ -19,7 +19,7 @@ class MovieTest {
     @DisplayName("Test to get the details of movie")
     @Test
     void testForMovieDetails() {
-        assertEquals("\n|    Avengers                 |    Jos Wehdon |    2012       |    8 |", movie.getDetails(MOVIE));
+        assertEquals(String.format("\n|    %-25s|    %-10s |    %-10s |    %s |", "Avengers", "Jos Wehdon", 2012, 8), movie.getDetails(MOVIE));
     }
 
     @DisplayName("Test to know movies are same or not")

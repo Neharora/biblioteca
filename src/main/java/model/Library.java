@@ -1,22 +1,25 @@
 package model;
 
+import main.DefaultData;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import static main.Constants.*;
 
 public class Library {
 
-    private static final String WELCOME_MESSAGE = "Welcome to library pathshala\n";
-    private static final String SUCCESS_MESSAGE_FOR_CHECKOUT = "Thank you! Enjoy the item.\n";
-    private static final String UNSUCCESS_MESSAGE_FOR_CHECKOUT = "That item is not available.\n";
-    private static final String SUCCESS_MESSAGE_FOR_CHECKIN = "Thank you for returning the item.\n";
-    private static final String UNSUCCESS_MESSAGE_FOR_CHECKIN = "That is not a valid item to return.\n";
     private List<LibraryItem> presentItems;
-    private List<LibraryItem> checkedOutItems;
+    private List<CheckedOutDetails> checkedOutItems;
+    private Set<User> userList;
+    private User currentUser;
 
 
     public Library(List<LibraryItem> presentItems) {
         this.checkedOutItems = new ArrayList<>();
         this.presentItems = presentItems;
+        this.userList = new DefaultData().getDefaultUsers();
     }
 
     public String getWelcomeMessage() {
@@ -38,7 +41,7 @@ public class Library {
         for (LibraryItem aBookSet : presentItems) {
             if (aBookSet.isNameSame(itemToCheckOut, itemType)) {
                 presentItems.remove(aBookSet);
-                checkedOutItems.add(aBookSet);
+                checkedOutItems.add(new CheckedOutDetails(aBookSet, currentUser));
                 return SUCCESS_MESSAGE_FOR_CHECKOUT;
             }
         }
@@ -46,13 +49,30 @@ public class Library {
     }
 
     public String addItemToList(String itemToCheckIn, ItemType itemType) {
-        for (LibraryItem book : checkedOutItems) {
-            if (book.isNameSame(itemToCheckIn, itemType)) {
+        for (CheckedOutDetails book : checkedOutItems) {
+            if (book.libraryItem.isNameSame(itemToCheckIn, itemType)) {
                 checkedOutItems.remove(book);
-                presentItems.add(book);
+                presentItems.add(book.libraryItem);
                 return SUCCESS_MESSAGE_FOR_CHECKIN;
             }
         }
         return UNSUCCESS_MESSAGE_FOR_CHECKIN;
+    }
+
+    public boolean isUserValid(UserId userId, UserPassword userPassword) {
+        for (User user1 : userList) {
+            if (user1.validate(userId, userPassword)) {
+                currentUser = user1;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getInformationAboutCurrentUser() {
+        if (currentUser != null) {
+            return currentUser.getUserDetails();
+        }
+        return USER_IS_NOT_LOGGED_IN;
     }
 }

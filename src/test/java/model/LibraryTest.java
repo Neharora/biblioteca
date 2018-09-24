@@ -5,9 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static main.Constants.USER_IS_NOT_LOGGED_IN;
 import static model.ItemType.BOOK;
 import static model.ItemType.MOVIE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryTest {
     private Library library;
@@ -29,14 +30,14 @@ class LibraryTest {
     @Test
     void testForPrintingListOfBooks() {
 
-        assertEquals(new Helper().getDeatilsOfBooks(), library.getList(BOOK));
+        assertEquals(new Helper().getDetailsOfBooks(), library.getList(BOOK));
     }
 
     @DisplayName("Test to get the print list of movies from library")
     @Test
     void testForPrintingListOfMovies() {
 
-        assertEquals(new Helper().getDeatilsOfMovies(), library.getList(MOVIE));
+        assertEquals(new Helper().getDetailsOfMovies(), library.getList(MOVIE));
     }
 
     @DisplayName("Test to remove a book expects true if removed")
@@ -73,5 +74,22 @@ class LibraryTest {
 
         assertEquals("Thank you for returning the item.\n", library.addItemToList("AVENGERS", MOVIE));
         assertEquals("That is not a valid item to return.\n", library.addItemToList("AVENGERS", MOVIE));
+    }
+
+    @DisplayName("test to authenticate user expects true")
+    @Test
+    void authenticateUser() {
+        UserId userId = new UserId(1234567);
+        UserId userId1 = new UserId(1234568);
+        UserPassword userPassword = new UserPassword("Nehar");
+
+        assertTrue(library.isUserValid(userId, userPassword));
+        assertFalse(library.isUserValid(userId1, userPassword));
+    }
+
+    @DisplayName("test to get details of current user as there is no current user should return null")
+    @Test
+    void getDetails() {
+        assertEquals(USER_IS_NOT_LOGGED_IN, library.getInformationAboutCurrentUser());
     }
 }

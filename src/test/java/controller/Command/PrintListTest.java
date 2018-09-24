@@ -1,11 +1,17 @@
 package controller.Command;
 
+import helper.Helper;
+import model.ItemType;
 import model.Library;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import view.InputDriver;
 import view.OutputDriver;
 
-import static org.mockito.Mockito.mock;
+import static main.Constants.STRING_FORMATTER_BOOK;
+import static main.Constants.STRING_FORMATTER_MOVIE;
+import static org.mockito.Mockito.*;
 
 class PrintListTest {
     private PrintList printList;
@@ -20,28 +26,24 @@ class PrintListTest {
         inputDriver = mock(InputDriver.class);
         outputDriver = mock(OutputDriver.class);
     }
-//    @DisplayName("Test for check out command for movie")
-//    @Test
-//    void testForCheckOutMovie() {
-//        ItemType itemType = ItemType.MOVIE;
-//        when(inputDriver.askForItemName()).thenReturn("AVENGERS");
-//        when(library.removeItemFromList("AVENGERS",itemType)).thenReturn("Thank you! Enjoy the item.\n");
-//
-//        printList.action(outputDriver, library, inputDriver, itemType);
-//
-//        verify(outputDriver).print("Thank you! Enjoy the item.\n");
-//    }
-//
-//    @DisplayName("Test for check out command for book")
-//    @Test
-//    void testForCheckOutBook() {
-//        ItemType itemType = ItemType.BOOK;
-//        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE");
-//        when(library.removeItemFromList("FIRST TITLE",itemType)).thenReturn("That item is not available.\n");
-//
-//        printList.action(outputDriver, library, inputDriver, itemType);
-//
-//        verify(outputDriver).print("That item is not available.\n");
-//    }
 
+    @DisplayName("test to print the list of books")
+    @Test
+    void testToPrintBooks() {
+        when(library.getList(ItemType.BOOK)).thenReturn(new Helper().getDetailsOfBooks());
+
+        printList.action(outputDriver, library, inputDriver, ItemType.BOOK);
+
+        verify(outputDriver).print(String.format(STRING_FORMATTER_BOOK, "FIRST TITLE", "neha", 2018));
+    }
+
+    @DisplayName("test to print the list of movies")
+    @Test
+    void testToPrintMovies() {
+        when(library.getList(ItemType.MOVIE)).thenReturn(new Helper().getDetailsOfMovies());
+
+        printList.action(outputDriver, library, inputDriver, ItemType.MOVIE);
+
+        verify(outputDriver).print(String.format(STRING_FORMATTER_MOVIE, "AVENGERS", "neha", 2018, 8));
+    }
 }

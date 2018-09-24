@@ -2,6 +2,8 @@ package model;
 
 import java.util.Objects;
 
+import static main.Constants.STRING_FORMATTER_BOOK;
+
 public class LibraryItem {
     String name;
     String person;
@@ -21,7 +23,7 @@ public class LibraryItem {
 
     String getDetails(ItemType itemType) {
         if (itemType == this.itemType) {
-            return String.format("\n|    %-25s|    %-10s|    %-10s|", name, person, year);
+            return String.format(STRING_FORMATTER_BOOK, name, person, year);
         }
         return "";
     }

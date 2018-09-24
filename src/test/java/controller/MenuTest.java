@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import view.InputDriver;
 import view.OutputDriver;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static main.Constants.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class MenuTest {
@@ -29,25 +30,22 @@ class MenuTest {
     void testForPrintBooks() {
         Menu menu = Menu.PRINT_BOOKS;
 
-        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
 
-        assertFalse(returnType);
-        verify(outputDriver).print("\n|    FIRST TITLE              |    neha      |    2018      |");
-        verify(outputDriver).print("\n|    FIFTH TITLE              |    neha      |    2018      |");
+        verify(outputDriver).print(String.format(STRING_FORMATTER_BOOK, "FIRST TITLE", "neha", 2018));
     }
 
     @DisplayName("test for calling proceed on check in for book")
     @Test
     void testForCheckIn() {
         Menu menu = Menu.CHECK_IN_BOOK;
-        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE");
+        when(inputDriver.askInputAsString()).thenReturn("FIRST TITLE");
 
-        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
 
-        assertFalse(returnType);
-        verify(inputDriver).askForItemName();
-        verify(outputDriver).print("Enter Book Name : ");
-        verify(outputDriver).print("That is not a valid item to return.\n");
+        verify(inputDriver).askInputAsString();
+        verify(outputDriver).print(ENTER_ITEM_NAME);
+        verify(outputDriver).print(UNSUCCESS_MESSAGE_FOR_CHECKIN);
     }
 
     @DisplayName("test for calling proceed on checkout for book")
@@ -55,14 +53,13 @@ class MenuTest {
     void testForCheckoutBook() {
 
         Menu menu = Menu.CHECKOUT_BOOKS;
-        when(inputDriver.askForItemName()).thenReturn("FIRST TITLE").thenReturn("FIRST TITLE");
+        when(inputDriver.askInputAsString()).thenReturn("FIRST TITLE").thenReturn("FIRST TITLE");
 
-        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
         menu.proceed(outputDriver, library, inputDriver);
 
-        assertFalse(returnType);
-        verify(outputDriver).print("Thank you! Enjoy the item.\n");
-        verify(outputDriver).print("That item is not available.\n");
+        verify(outputDriver).print(SUCCESS_MESSAGE_FOR_CHECKOUT);
+        verify(outputDriver).print(UNSUCCESS_MESSAGE_FOR_CHECKOUT);
     }
 
     @DisplayName("test for checking functionality of remove movie")
@@ -72,14 +69,13 @@ class MenuTest {
         Menu menu = Menu.CHECKOUT_MOVIES;
 
 
-        when(inputDriver.askForItemName()).thenReturn("AVENGERS").thenReturn("AVENGERS");
+        when(inputDriver.askInputAsString()).thenReturn("AVENGERS").thenReturn("AVENGERS");
 
-        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
         menu.proceed(outputDriver, library, inputDriver);
 
-        assertFalse(returnType);
-        verify(outputDriver).print("Thank you! Enjoy the item.\n");
-        verify(outputDriver).print("That item is not available.\n");
+        verify(outputDriver).print(SUCCESS_MESSAGE_FOR_CHECKOUT);
+        verify(outputDriver).print(UNSUCCESS_MESSAGE_FOR_CHECKOUT);
     }
 
     @DisplayName("test for checking functionality of add movie")
@@ -88,14 +84,19 @@ class MenuTest {
 
         Menu menu = Menu.CHECK_IN_MOVIES;
 
-        when(inputDriver.askForItemName()).thenReturn("AVENGERS");
+        when(inputDriver.askInputAsString()).thenReturn("AVENGERS");
 
-        boolean returnType = menu.proceed(outputDriver, library, inputDriver);
+        menu.proceed(outputDriver, library, inputDriver);
 
-        assertFalse(returnType);
-        verify(inputDriver).askForItemName();
-        verify(outputDriver).print("Enter Movie Name : ");
-        verify(outputDriver).print("That is not a valid item to return.\n");
+        verify(inputDriver).askInputAsString();
+        verify(outputDriver).print(ENTER_ITEM_NAME);
+        verify(outputDriver).print(UNSUCCESS_MESSAGE_FOR_CHECKIN);
+    }
+
+    @DisplayName("test to get user information expects user is not logged in")
+    @Test
+    void testToGetUserDetails() {
+        assertEquals(USER_IS_NOT_LOGGED_IN, library.getInformationAboutCurrentUser());
     }
 
 }

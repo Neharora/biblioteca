@@ -23,7 +23,7 @@ class InputDriverTest {
     void testMenuInput() {
         setSystemIn("3\n");
 
-        assertEquals(3, inputDriver.askChoice());
+        assertEquals(3, inputDriver.askIntegerChoice());
     }
 
     @DisplayName("test for reset the system in")
@@ -31,7 +31,7 @@ class InputDriverTest {
     void testMenuResetSystemIn() {
         setSystemIn("3\n");
 
-        assertNotEquals(2, inputDriver.askChoice());
+        assertNotEquals(2, inputDriver.askIntegerChoice());
     }
 
     @DisplayName("test for getting the book to be checkout")
@@ -39,7 +39,7 @@ class InputDriverTest {
     void getBookNameToCheckout() {
         setSystemIn("FIRST TITLE");
 
-        assertEquals("FIRST TITLE", inputDriver.askForItemName());
+        assertEquals("FIRST TITLE", inputDriver.askInputAsString());
     }
 
     private void setSystemIn(String string) {

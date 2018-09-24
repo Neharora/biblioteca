@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import view.InputDriver;
 import view.OutputDriver;
 
+import static main.Constants.ENTER_USER_DETAILS;
 import static org.mockito.Mockito.*;
 
 class LibraryControllerTest {
@@ -34,32 +35,27 @@ class LibraryControllerTest {
     @DisplayName("Test for taking the input as book list")
     @Test
     void testForAskingInput1() {
-        when(inputDriver.askChoice()).thenReturn(1);
+        when(inputDriver.askIntegerChoice()).thenReturn(1).thenReturn(1234567).thenReturn(1).thenReturn(8);
+        when(inputDriver.askInputAsString()).thenReturn("Nehar");
 
         libraryController.askChoiceAndProceed();
 
-        verify(inputDriver).askChoice();
-        verify(outputDriver).print("\n|    FIRST TITLE              |    neha      |    2018      |");
-        verify(outputDriver).print("\n|    SECOND TITLE             |    neha      |    2018      |");
+        verify(inputDriver, times(4)).askIntegerChoice();
+        verify(outputDriver).print(ENTER_USER_DETAILS);
+        verify(inputDriver).askInputAsString();
+        verify(outputDriver).print(String.format("\n|    %-25s|    %-10s|    %-10s|", "FIRST TITLE", "neha", 2018));
     }
 
 
     @DisplayName("Test for taking the input as wrong choice")
     @Test
     void testForAskingInput5() {
-        when(inputDriver.askChoice()).thenReturn(9);
+        when(inputDriver.askIntegerChoice()).thenReturn(5).thenReturn(2);
 
         libraryController.askChoiceAndProceed();
 
-        verify(inputDriver).askChoice();
+        verify(inputDriver, times(2)).askIntegerChoice();
         verify(outputDriver).print("Re-enter Your Choice !\n");
     }
 
-    @DisplayName("test for printing the menu")
-    @Test
-    void testForPrinting() {
-        libraryController.printMenu();
-
-        verify(outputDriver).print("\nChoose a option \n1. List Books\n2.List Movies\n3.Checkout book\n4.Return book\n5.Checkout Movie\n6.Return movie\n7.Quit\n");
-    }
 }

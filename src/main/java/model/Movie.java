@@ -1,6 +1,8 @@
 package model;
 
 
+import static main.Constants.STRING_FORMATTER_MOVIE;
+
 public class Movie extends LibraryItem {
     private int movieRating;
 
@@ -12,7 +14,7 @@ public class Movie extends LibraryItem {
     @Override
     String getDetails(ItemType itemType) {
         if (itemType == this.itemType) {
-            return String.format("\n|    %-25s|    %-10s |    %-10s |    %s |", name, person, year, movieRating);
+            return String.format(STRING_FORMATTER_MOVIE, name, person, year, movieRating);
         }
         return "";
     }

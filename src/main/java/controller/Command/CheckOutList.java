@@ -5,10 +5,13 @@ import model.Library;
 import view.InputDriver;
 import view.OutputDriver;
 
+import static main.Constants.ENTER_ITEM_NAME;
+
 public class CheckOutList implements Command {
     @Override
     public void action(OutputDriver outputDriver, Library library, InputDriver driver, ItemType itemType) {
-        String bookToCheckout = driver.askForItemName();
+        outputDriver.print(ENTER_ITEM_NAME);
+        String bookToCheckout = driver.askInputAsString();
         outputDriver.print(library.removeItemFromList(bookToCheckout, itemType));
     }
 }

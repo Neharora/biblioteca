@@ -4,6 +4,9 @@ import model.Library;
 import view.InputDriver;
 import view.OutputDriver;
 
+import static main.Constants.MENU_WITHOUT_LOGIN;
+import static main.Constants.RE_ENTER_YOUR_CHOICE;
+
 public class LibraryController {
     private final OutputDriver outputDriver;
     private Library library;
@@ -19,19 +22,18 @@ public class LibraryController {
         outputDriver.print(library.getWelcomeMessage());
     }
 
-    public boolean askChoiceAndProceed() {
-        int choice = inputDriver.askChoice() - 1;
-        if (choice >= 0 && choice <= 6) {
-            return Menu.values()[choice].proceed(outputDriver, library, inputDriver);
-        }
-        String RE_ENTER_MESSAGE = "Re-enter Your Choice !\n";
-        outputDriver.print(RE_ENTER_MESSAGE);
-        return false;
+    public void askChoiceAndProceed() {
+        outputDriver.print(MENU_WITHOUT_LOGIN);
+        int choice;
+        do {
+            choice = inputDriver.askIntegerChoice() - 1;
+            if (choice >= 0 && choice < MenuBeforeLogin.values().length) {
+                MenuBeforeLogin.values()[choice].proceed(outputDriver, library, inputDriver);
+                return;
+            } else {
+                outputDriver.print(RE_ENTER_YOUR_CHOICE);
+            }
+            outputDriver.print(MENU_WITHOUT_LOGIN);
+        } while (choice != 1);
     }
-
-    public void printMenu() {
-        String MENU = "\nChoose a option \n1. List Books\n2.List Movies\n3.Checkout book\n4.Return book\n5.Checkout Movie\n6.Return movie\n7.Quit\n";
-        outputDriver.print(MENU);
-    }
-
 }
