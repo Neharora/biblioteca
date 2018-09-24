@@ -5,10 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static main.Constants.STRING_FORMATTER_DETAILS;
 import static main.Constants.USER_IS_NOT_LOGGED_IN;
 import static model.ItemType.BOOK;
 import static model.ItemType.MOVIE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LibraryTest {
     private Library library;
@@ -76,15 +77,19 @@ class LibraryTest {
         assertEquals("That is not a valid item to return.\n", library.addItemToList("AVENGERS", MOVIE));
     }
 
-    @DisplayName("test to authenticate user expects true")
+    @DisplayName("test to set the current user")
     @Test
     void authenticateUser() {
-        UserId userId = new UserId(1234567);
-        UserId userId1 = new UserId(1234568);
-        UserPassword userPassword = new UserPassword("Nehar");
+        UserInformation userInformation = new UserInformation("neha", new Email("neha.arora@thoughtworks.com"), new PhoneNumber(1233456789));
+        User user = new User(new UserId(1234567), new UserPassword("Nehar"), userInformation);
 
-        assertTrue(library.isUserValid(userId, userPassword));
-        assertFalse(library.isUserValid(userId1, userPassword));
+        assertEquals(USER_IS_NOT_LOGGED_IN, library.getInformationAboutCurrentUser());
+
+        library.loginUser(user);
+
+        assertEquals(String.format(STRING_FORMATTER_DETAILS, "neha", "neha.arora@thoughtworks.com", 1233456789), library.getInformationAboutCurrentUser());
+
+
     }
 
     @DisplayName("test to get details of current user as there is no current user should return null")

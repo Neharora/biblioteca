@@ -1,4 +1,4 @@
-package controller.Command;
+package controller.command;
 
 import model.ItemType;
 import model.Library;
@@ -10,15 +10,15 @@ import view.OutputDriver;
 
 import static org.mockito.Mockito.*;
 
-class CheckOutListTest {
-    private CheckOutList checkOutList;
+class IssueItemTest {
+    private IssueItem issueItem;
     private Library library;
     private InputDriver inputDriver;
     private OutputDriver outputDriver;
 
     @BeforeEach
     void init() {
-        checkOutList = new CheckOutList();
+        issueItem = new IssueItem();
         library = mock(Library.class);
         inputDriver = mock(InputDriver.class);
         outputDriver = mock(OutputDriver.class);
@@ -31,7 +31,7 @@ class CheckOutListTest {
         when(inputDriver.askInputAsString()).thenReturn("AVENGERS");
         when(library.removeItemFromList("AVENGERS", itemType)).thenReturn("Thank you! Enjoy the item.\n");
 
-        checkOutList.action(outputDriver, library, inputDriver, itemType);
+        issueItem.action(outputDriver, library, inputDriver, itemType);
 
         verify(outputDriver).print("Thank you! Enjoy the item.\n");
     }
@@ -43,7 +43,7 @@ class CheckOutListTest {
         when(inputDriver.askInputAsString()).thenReturn("FIRST TITLE");
         when(library.removeItemFromList("FIRST TITLE", itemType)).thenReturn("That item is not available.\n");
 
-        checkOutList.action(outputDriver, library, inputDriver, itemType);
+        issueItem.action(outputDriver, library, inputDriver, itemType);
 
         verify(outputDriver).print("That item is not available.\n");
     }

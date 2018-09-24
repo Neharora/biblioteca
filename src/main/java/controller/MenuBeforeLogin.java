@@ -1,7 +1,7 @@
 package controller;
 
-import controller.Command.LoginCommand;
-import controller.Command.Quit;
+import controller.command.LoginCommand;
+import controller.command.Quit;
 import model.Library;
 import view.InputDriver;
 import view.OutputDriver;

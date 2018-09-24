@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
     private UserId userId;
@@ -16,6 +17,7 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("equals");
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
@@ -27,8 +29,17 @@ public class User {
         return userInformation.getDetails();
     }
 
-    boolean validate(UserId userId, UserPassword password) {
-        return this.userId.equals(userId) && this.password.equals(password);
+    private boolean validate(User user) {
+        return this.userId.equals(user.userId) && this.password.equals(user.password);
+    }
+
+    public User validate(Set<User> userSet) {
+        for (User user1 : userSet) {
+            if (user1.validate(this)) {
+                return user1;
+            }
+        }
+        return null;
     }
 
     @Override

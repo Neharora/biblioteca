@@ -12,7 +12,7 @@ public class Library {
 
     private List<LibraryItem> presentItems;
     private List<CheckedOutDetails> checkedOutItems;
-    private Set<User> userList;
+    public Set<User> userList;
     private User currentUser;
 
 
@@ -59,20 +59,15 @@ public class Library {
         return UNSUCCESS_MESSAGE_FOR_CHECKIN;
     }
 
-    public boolean isUserValid(UserId userId, UserPassword userPassword) {
-        for (User user1 : userList) {
-            if (user1.validate(userId, userPassword)) {
-                currentUser = user1;
-                return true;
-            }
-        }
-        return false;
-    }
 
     public String getInformationAboutCurrentUser() {
         if (currentUser != null) {
             return currentUser.getUserDetails();
         }
         return USER_IS_NOT_LOGGED_IN;
+    }
+
+    public void loginUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

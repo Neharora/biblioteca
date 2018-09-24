@@ -1,6 +1,6 @@
 package controller;
 
-import controller.Command.*;
+import controller.command.*;
 import model.Library;
 import view.InputDriver;
 import view.OutputDriver;
@@ -25,25 +25,25 @@ public enum Menu {
     CHECKOUT_BOOKS {
         @Override
         public void proceed(OutputDriver outputDriver, Library library, InputDriver inputDriver) {
-            new CheckOutList().action(outputDriver, library, inputDriver, BOOK);
+            new IssueItem().action(outputDriver, library, inputDriver, BOOK);
         }
     },
     CHECK_IN_BOOK {
         @Override
         public void proceed(OutputDriver outputDriver, Library library, InputDriver inputDriver) {
-            new CheckInList().action(outputDriver, library, inputDriver, BOOK);
+            new ReturnItem().action(outputDriver, library, inputDriver, BOOK);
         }
     },
     CHECKOUT_MOVIES {
         @Override
         public void proceed(OutputDriver outputDriver, Library library, InputDriver inputDriver) {
-            new CheckOutList().action(outputDriver, library, inputDriver, MOVIE);
+            new IssueItem().action(outputDriver, library, inputDriver, MOVIE);
         }
     },
     CHECK_IN_MOVIES {
         @Override
         public void proceed(OutputDriver outputDriver, Library library, InputDriver inputDriver) {
-            new CheckInList().action(outputDriver, library, inputDriver, MOVIE);
+            new ReturnItem().action(outputDriver, library, inputDriver, MOVIE);
         }
     },
     USER_INFORMATION {

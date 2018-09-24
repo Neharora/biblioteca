@@ -4,8 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static main.Constants.STRING_FORMATTER_DETAILS;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class UserTest {
     private User user1, user2, user3;
@@ -34,8 +38,12 @@ class UserTest {
     @DisplayName("test to validate user")
     @Test
     void testToValidateUser() {
-        assertTrue(user1.validate(new UserId(1234567), new UserPassword("Nehar")));
-        assertFalse(user1.validate(new UserId(1234568), new UserPassword("Nehar")));
+        Set<User> userSet = new HashSet<>();
+        userSet.add(user1);
+        userSet.add(user2);
+        userSet.add(user3);
+
+        assertEquals(user1, user1.validate(userSet));
     }
 
 }

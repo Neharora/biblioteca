@@ -1,4 +1,4 @@
-package controller.Command;
+package controller.command;
 
 import model.ItemType;
 import model.Library;
@@ -10,15 +10,15 @@ import view.OutputDriver;
 
 import static org.mockito.Mockito.*;
 
-class CheckInListTest {
-    private CheckInList checkInList;
+class ReturnItemTest {
+    private ReturnItem returnItem;
     private Library library;
     private InputDriver inputDriver;
     private OutputDriver outputDriver;
 
     @BeforeEach
     void init() {
-        checkInList = new CheckInList();
+        returnItem = new ReturnItem();
         library = mock(Library.class);
         inputDriver = mock(InputDriver.class);
         outputDriver = mock(OutputDriver.class);
@@ -31,7 +31,7 @@ class CheckInListTest {
         when(inputDriver.askInputAsString()).thenReturn("AVENGERS");
         when(library.addItemToList("AVENGERS", itemType)).thenReturn("That is not a valid item to return.\n");
 
-        checkInList.action(outputDriver, library, inputDriver, itemType);
+        returnItem.action(outputDriver, library, inputDriver, itemType);
 
         verify(outputDriver).print("That is not a valid item to return.\n");
     }
@@ -43,7 +43,7 @@ class CheckInListTest {
         when(inputDriver.askInputAsString()).thenReturn("FIRST TITLE");
         when(library.addItemToList("FIRST TITLE", itemType)).thenReturn("Thank you for returning the item.\n");
 
-        checkInList.action(outputDriver, library, inputDriver, itemType);
+        returnItem.action(outputDriver, library, inputDriver, itemType);
 
         verify(outputDriver).print("Thank you for returning the item.\n");
     }

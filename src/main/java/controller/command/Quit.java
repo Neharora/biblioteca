@@ -1,4 +1,4 @@
-package controller.Command;
+package controller.command;
 
 import model.ItemType;
 import model.Library;

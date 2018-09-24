@@ -9,6 +9,8 @@ import view.InputDriver;
 import view.OutputDriver;
 
 import static main.Constants.ENTER_USER_DETAILS;
+import static main.Constants.RE_ENTER_YOUR_CHOICE;
+import static main.Constants.STRING_FORMATTER_BOOK;
 import static org.mockito.Mockito.*;
 
 class LibraryControllerTest {
@@ -40,10 +42,10 @@ class LibraryControllerTest {
 
         libraryController.askChoiceAndProceed();
 
-        verify(inputDriver, times(4)).askIntegerChoice();
+        verify(inputDriver,times(4)).askIntegerChoice();
         verify(outputDriver).print(ENTER_USER_DETAILS);
         verify(inputDriver).askInputAsString();
-        verify(outputDriver).print(String.format("\n|    %-25s|    %-10s|    %-10s|", "FIRST TITLE", "neha", 2018));
+        verify(outputDriver).print(String.format(STRING_FORMATTER_BOOK,"FIRST TITLE","neha",2018));
     }
 
 
@@ -54,8 +56,8 @@ class LibraryControllerTest {
 
         libraryController.askChoiceAndProceed();
 
-        verify(inputDriver, times(2)).askIntegerChoice();
-        verify(outputDriver).print("Re-enter Your Choice !\n");
+        verify(inputDriver,times(2)).askIntegerChoice();
+        verify(outputDriver).print(RE_ENTER_YOUR_CHOICE);
     }
 
 }
